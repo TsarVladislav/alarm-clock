@@ -18,6 +18,7 @@ from dateutil.relativedelta import relativedelta
 from dateutil.parser import parse as dateparse
 from pytimeparse import parse as deltaparse
 
+import os.path
 __version__ = "0.1"
 
 def main():
@@ -30,6 +31,7 @@ def parse_args(args):
 
     parser.add_argument('--version', action='version',
             version="%%(prog)s v%s" % __version__)
+    
 
     subparsers = parser.add_subparsers(description='time to wake up')
 
@@ -79,6 +81,10 @@ class TestIn(unittest.TestCase):
     def test_time3(self):
         parser = parse_args(['in 5 hours'])
 
+class TestSettings(unittest.TestCase):
+
+    def test_fileexists(self):
+        self.assertTrue(os.path.exists(ALARM_CMD[2]) is True)
 
 
 if __name__ == '__main__':
