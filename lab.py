@@ -55,7 +55,7 @@ def main():
     print("Sleeping for %s" % time_delta(delay))
     time.sleep(delay.total_seconds())
 
-    loud()
+    loud(50)
 
     subprocess.call(ALARM_CMD)
 
@@ -169,7 +169,7 @@ class TestSettings(unittest.TestCase):
         self.assertEqual(loud(50), True)
 
     def test_volume(self):
-        self.assertEquals(loud(), True)
+        self.assertEqual(loud(0), True)
 
 if __name__ == '__main__':
     unittest.main()
