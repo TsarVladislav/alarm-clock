@@ -41,6 +41,8 @@ def main():
     
     print("Sleeping for %s" % time_delta(delay))
     time.sleep(delay.total_seconds())
+    
+    loud()
 
 def parse_args(args):
     parser = ArgumentParser(description=__doc__)
@@ -101,6 +103,8 @@ class TestSettings(unittest.TestCase):
 
     def test_fileexists(self):
         self.assertTrue(os.path.exists(ALARM_CMD[2]) is True)
+    def test_volume_settings_same(self):
+        self.assertEqual(loud(50), True)
 
 
 if __name__ == '__main__':
