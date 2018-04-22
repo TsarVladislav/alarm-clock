@@ -8,10 +8,15 @@
 
 """
 
+from __future__ import (absolute_import, division, print_function,
+                        with_statement, unicode_literals)
+
 import sys
 import unittest
 from argparse import ArgumentParser, RawTextHelpFormatter, REMAINDER
+import subprocess, time
 
+from contextlib import contextmanager
 from datetime import datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
@@ -22,19 +27,17 @@ import os.path
 import alsaaudio
 __version__ = "0.1"
 
-        
+SAFETY_LIMIT = timedelta(hours=15)
 ALARM_CMD = ['mpv', '-loop=inf',
     '/home/vlad/mandala.mp3']
-
 
 def loud(loudness):
     m = alsaaudio.Mixer()
     m.setvolume(loudness)
     return True
 
-
 def main():
-    
+
     parser = parse_args(sys.argv[1:])
 
     args = parser.parse_args()
@@ -46,18 +49,42 @@ def main():
         print("Setting alarm melody as '%s'" % args.track)
         ALARM_CMD[2] = args.track
 
-    
+    if delay > SAFETY_LIMIT:
+        raise Exception("The delay is too big: %s" % time_delta(delay))
+
     print("Sleeping for %s" % time_delta(delay))
     time.sleep(delay.total_seconds())
-    
+
     loud()
+
+    subprocess.call(ALARM_CMD)
+
+def time_delta(delta):
+
+    result = []
+    days, hours = delta.days, delta.seconds // 3600
+    minutes = (delta.seconds % 3600) // 60
+    seconds = delta.seconds % 60
+
+    if days > 0:
+        result.append('%s days' % days)
+
+    if minutes > 0:
+        result.append('%s minutes' % minutes)
+    if seconds > 0:
+        result.append('%s seconds' % seconds)
+    return ', '.join(result)
+
+def parse_in(timespec):
+    return timedelta(seconds=deltaparse(timespec))
 
 def parse_args(args):
     parser = ArgumentParser(description=__doc__)
 
     parser.add_argument('--version', action='version',
             version="%%(prog)s v%s" % __version__)
-    
+
+    parser.add_argument('-t', '--track', help='give full path to melody in your filesystem')
 
     subparsers = parser.add_subparsers(description='time to wake up')
 
@@ -69,16 +96,21 @@ def parse_args(args):
     parser_at.set_defaults(parser=parse_at)
     parser_at.add_argument('timespec_list', nargs=REMAINDER)
 
-    return parser
 
-def parse_in(timespec):
-    return timedelta(seconds=deltaparse(timespec))
+    return parser
 
 def parse_at(timespec):
 
-    def test_null(self):
-        parser = parse_args([])
-        self.assertTrue(parser is not None)
+    now = datetime.now()
+    date = dateparse(timespec)
+
+    if date < now:
+        date += relativedelta(days=+1)
+
+    if date < now:
+        raise Exception("oversleep")
+
+    return date - datetime.now()
 
 
 class TestDoc(unittest.TestCase):
@@ -94,7 +126,6 @@ class TestDoc(unittest.TestCase):
         self.assertNotEqual(self.parser.description.lstrip(), '')
         self.assertNotEqual(self.parser.description.rstrip(), '')
 
-
 class TestIn(unittest.TestCase):
 
     def test_null(self):
@@ -103,18 +134,41 @@ class TestIn(unittest.TestCase):
     def test_time1(self):
         parser = parse_args(['in 2 seconds'])
     def test_time2(self):
-        parser = parse_args(['in 222222 minutes'])
+        parser = parse_args(['in 222222 seconds'])
     def test_time3(self):
-        parser = parse_args(['in 5 hours'])
+        parser = parse_args(['in -52 seconds'])
+
+class TestAt(unittest.TestCase):
+
+    def test_null(self):
+        parser = parse_args([])
+        self.assertTrue(parser is not None)
+    def test_time1(self):
+        parser = parse_args(['at 2 AM'])
+    def test_time2(self):
+        parser = parse_args(['at 25 AM'])
+    def test_time3(self):
+        parser = parse_args(['at 232323'])
+
 
 class TestSettings(unittest.TestCase):
 
+    def test_filenull(self):
+        self.assertTrue(ALARM_CMD[2] is not None)
+
+    def test_filename_empty(self):
+        self.assertNotEqual(ALARM_CMD[2], '')
+        self.assertNotEqual(ALARM_CMD[2].strip(), '')
+        self.assertNotEqual(ALARM_CMD[2].lstrip(), '')
+        self.assertNotEqual(ALARM_CMD[2].rstrip(), '')
+
     def test_fileexists(self):
         self.assertTrue(os.path.exists(ALARM_CMD[2]) is True)
+
     def test_volume_settings_same(self):
         self.assertEqual(loud(50), True)
 
 
 if __name__ == '__main__':
-    unittest.main()
-#    main()
+#    unittest.main()
+    main()

@@ -4,6 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+SAFETY_LIMIT	lab.py	/^SAFETY_LIMIT = timedelta(hours=15)$/;"	v
+TestAt	lab.py	/^class TestAt(unittest.TestCase):$/;"	c
 TestDoc	lab.py	/^class TestDoc(unittest.TestCase):$/;"	c
 TestIn	lab.py	/^class TestIn(unittest.TestCase):$/;"	c
 TestSettings	lab.py	/^class TestSettings(unittest.TestCase):$/;"	c
@@ -17,10 +19,16 @@ parse_in	lab.py	/^def parse_in(timespec):$/;"	f
 parser	lab.py	/^    parser = ArgumentParser(formatter_class=RawTextHelpFormatter,$/;"	v	class:TestDoc
 test_description	lab.py	/^    def test_description(self):$/;"	m	class:TestDoc
 test_fileexists	lab.py	/^    def test_fileexists(self):$/;"	m	class:TestSettings
+test_filename_empty	lab.py	/^    def test_filename_empty(self):$/;"	m	class:TestSettings
+test_filenull	lab.py	/^    def test_filenull(self):$/;"	m	class:TestSettings
 test_name	lab.py	/^    def test_name(self):$/;"	m	class:TestDoc
-test_null	lab.py	/^    def test_null(self):$/;"	f	function:parse_at
+test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestAt
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestIn
+test_time1	lab.py	/^    def test_time1(self):$/;"	m	class:TestAt
 test_time1	lab.py	/^    def test_time1(self):$/;"	m	class:TestIn
+test_time2	lab.py	/^    def test_time2(self):$/;"	m	class:TestAt
 test_time2	lab.py	/^    def test_time2(self):$/;"	m	class:TestIn
+test_time3	lab.py	/^    def test_time3(self):$/;"	m	class:TestAt
 test_time3	lab.py	/^    def test_time3(self):$/;"	m	class:TestIn
 test_volume_settings_same	lab.py	/^    def test_volume_settings_same(self):$/;"	m	class:TestSettings
+time_delta	lab.py	/^def time_delta(delta):$/;"	f
