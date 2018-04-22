@@ -24,6 +24,14 @@ def main():
     parser = parse_args(sys.argv[1:])
 
 
+def parse_args(args):
+    parser = ArgumentParser(description=__doc__)
+
+    parser.add_argument('--version', action='version',
+            version="%%(prog)s v%s" % __version__)
+
+    return parser
+
 class TestDoc(unittest.TestCase):
     parser = ArgumentParser(formatter_class=RawTextHelpFormatter,
             description=__doc__)
@@ -43,7 +51,6 @@ class TestIn(unittest.TestCase):
     def test_null(self):
         parser = parse_args([])
         self.assertTrue(parser is not None)
-
 
 
 if __name__ == '__main__':
