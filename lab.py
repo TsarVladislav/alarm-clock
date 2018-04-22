@@ -37,6 +37,9 @@ def parse_args(args):
     parser_in.set_defaults(parser=parse_in)
     parser_in.add_argument('timespec_list', nargs=REMAINDER)
 
+    parser_at = subparsers.add_parser('at',help='wake up at specific time. For example: at 5 AM' )
+    parser_at.set_defaults(parser=parse_at)
+    parser_at.add_argument('timespec_list', nargs=REMAINDER)
 
     return parser
 
