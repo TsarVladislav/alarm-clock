@@ -9,6 +9,7 @@ TestIn	lab.py	/^class TestIn(unittest.TestCase):$/;"	c
 TestSettings	lab.py	/^class TestSettings(unittest.TestCase):$/;"	c
 __version__	lab.py	/^__version__ = "0.1"$/;"	v
 description	lab.py	/^            description=__doc__)$/;"	v	class:TestDoc
+loud	lab.py	/^def loud(loudness):$/;"	f
 main	lab.py	/^def main():$/;"	f
 parse_args	lab.py	/^def parse_args(args):$/;"	f
 parse_at	lab.py	/^def parse_at(timespec):$/;"	f

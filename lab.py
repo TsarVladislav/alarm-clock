@@ -19,11 +19,19 @@ from dateutil.parser import parse as dateparse
 from pytimeparse import parse as deltaparse
 
 import os.path
+import alsaaudio
 __version__ = "0.1"
 
         
 ALARM_CMD = ['mpv', '-loop=inf',
     '/home/vlad/mandala.mp3']
+
+
+def loud(loudness):
+    m = alsaaudio.Mixer()
+    m.setvolume(loudness)
+    return True
+
 
 def main():
     
