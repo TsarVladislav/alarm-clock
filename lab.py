@@ -38,6 +38,9 @@ def main():
         print("Setting alarm melody as '%s'" % args.track)
         ALARM_CMD[2] = args.track
 
+    
+    print("Sleeping for %s" % time_delta(delay))
+    time.sleep(delay.total_seconds())
 
 def parse_args(args):
     parser = ArgumentParser(description=__doc__)
