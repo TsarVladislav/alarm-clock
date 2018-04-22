@@ -44,6 +44,7 @@ def loud(loudness):
 
 def main():
 
+    loudness = 50
     parser = parse_args(sys.argv[1:])
 
     args = parser.parse_args()
@@ -54,6 +55,11 @@ def main():
     if args.track is not None:
         print("Setting alarm melody as '%s'" % args.track)
         ALARM_CMD[2] = args.track
+    
+
+    if args.volume is not None:
+        print("setting volume to %s" % args.volume)
+        loundess = int(args.volume)
 
     if delay > SAFETY_LIMIT:
         raise Exception("The delay is too big: %s" % time_delta(delay))
@@ -61,7 +67,7 @@ def main():
     print("Sleeping for %s" % time_delta(delay))
     time.sleep(delay.total_seconds())
 
-    loud(50)
+    loud(loudness)
 
     subprocess.call(ALARM_CMD)
 
@@ -94,6 +100,7 @@ def parse_args(args):
             version="%%(prog)s v%s" % __version__)
 
     parser.add_argument('-t', '--track', help='give full path to melody in your filesystem')
+    parser.add_argument('-v', '--volume', help='it will set loundess')
 
     subparsers = parser.add_subparsers(description='time to wake up')
 
@@ -182,7 +189,7 @@ class TestSettings(unittest.TestCase):
     def test_volume6(self):
         self.assertLessEqual(loud(5556)[0], 100L)
 if __name__ == '__main__':
-    unittest.main()
+#    unittest.main()
 
-#    main()
+    main()
 
