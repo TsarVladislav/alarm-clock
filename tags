@@ -14,3 +14,6 @@ parser	lab.py	/^    parser = ArgumentParser(formatter_class=RawTextHelpFormatter
 test_description	lab.py	/^    def test_description(self):$/;"	m	class:TestDoc
 test_name	lab.py	/^    def test_name(self):$/;"	m	class:TestDoc
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestIn
+test_time1	lab.py	/^    def test_time1(self):$/;"	m	class:TestIn
+test_time2	lab.py	/^    def test_time2(self):$/;"	m	class:TestIn
+test_time3	lab.py	/^    def test_time3(self):$/;"	m	class:TestIn

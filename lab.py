@@ -22,6 +22,7 @@ __version__ = "0.1"
 
 def main():
     parser = parse_args(sys.argv[1:])
+    args = parser.parse_args()
 
 
 def parse_args(args):
@@ -29,6 +30,13 @@ def parse_args(args):
 
     parser.add_argument('--version', action='version',
             version="%%(prog)s v%s" % __version__)
+
+    subparsers = parser.add_subparsers(description='time to wake up')
+
+    paser_in = subparsers.add_parser('in', help='wake up after some time left. For example: in 5 minutes')
+    parser_in.set_defaults(paser=parse_in)
+    parser_in.add_argument('timespec_list', nargs=REMAINDER)
+
 
     return parser
 
@@ -51,6 +59,13 @@ class TestIn(unittest.TestCase):
     def test_null(self):
         parser = parse_args([])
         self.assertTrue(parser is not None)
+    def test_time1(self):
+        parser = parse_args(['in 2 seconds'])
+    def test_time2(self):
+        parser = parse_args(['in 222222 minutes'])
+    def test_time3(self):
+        parser = parse_args(['in 5 hours'])
+
 
 
 if __name__ == '__main__':
