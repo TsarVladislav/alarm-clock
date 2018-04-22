@@ -34,7 +34,7 @@ def parse_args(args):
     subparsers = parser.add_subparsers(description='time to wake up')
 
     parser_in = subparsers.add_parser('in', help='wake up after some time left. For example: in 5 minutes')
-    parser_in.set_defaults(parser=parse_)
+    parser_in.set_defaults(parser=parse_in)
     parser_in.add_argument('timespec_list', nargs=REMAINDER)
 
 
