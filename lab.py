@@ -24,9 +24,19 @@ __version__ = "0.1"
         
 ALARM_CMD = ['mpv', '-loop=inf',
     '/home/vlad/mandala.mp3']
+
 def main():
+    
     parser = parse_args(sys.argv[1:])
+
     args = parser.parse_args()
+    delay = args.parser(' '.join(args.timespec_list))
+
+    args, leftovers = parser.parse_known_args()
+
+    if args.track is not None:
+        print("Setting alarm melody as '%s'" % args.track)
+        ALARM_CMD[2] = args.track
 
 
 def parse_args(args):
