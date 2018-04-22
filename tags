@@ -15,6 +15,7 @@ parse_in	lab.py	/^def parse_in(timespec):$/;"	f
 parser	lab.py	/^    parser = ArgumentParser(formatter_class=RawTextHelpFormatter,$/;"	v	class:TestDoc
 test_description	lab.py	/^    def test_description(self):$/;"	m	class:TestDoc
 test_name	lab.py	/^    def test_name(self):$/;"	m	class:TestDoc
+test_null	lab.py	/^    def test_null(self):$/;"	f	function:parse_at
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestIn
 test_time1	lab.py	/^    def test_time1(self):$/;"	m	class:TestIn
 test_time2	lab.py	/^    def test_time2(self):$/;"	m	class:TestIn

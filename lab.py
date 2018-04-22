@@ -47,7 +47,10 @@ def parse_in(timespec):
     return timedelta(seconds=deltaparse(timespec))
 
 def parse_at(timespec):
-    yield
+
+    def test_null(self):
+        parser = parse_args([])
+        self.assertTrue(parser is not None)
 
 
 class TestDoc(unittest.TestCase):
