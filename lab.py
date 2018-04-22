@@ -134,7 +134,7 @@ class TestIn(unittest.TestCase):
     def test_time1(self):
         parser = parse_args(['in 2 seconds'])
     def test_time2(self):
-        parser = parse_args(['in 222222 seconds'])
+        parser = parse_args(['in 22 seconds'])
     def test_time3(self):
         parser = parse_args(['in -52 seconds'])
 
@@ -168,7 +168,9 @@ class TestSettings(unittest.TestCase):
     def test_volume_settings_same(self):
         self.assertEqual(loud(50), True)
 
+    def test_volume(self):
+        self.assertEquals(loud(), True)
 
 if __name__ == '__main__':
-#    unittest.main()
-    main()
+    unittest.main()
+#    main()
