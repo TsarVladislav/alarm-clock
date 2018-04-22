@@ -1,0 +1,15 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+TestDoc	lab.py	/^class TestDoc(unittest.TestCase):$/;"	c
+TestIn	lab.py	/^class TestIn(unittest.TestCase):$/;"	c
+__version__	lab.py	/^__version__ = "0.1"$/;"	v
+description	lab.py	/^            description=__doc__)$/;"	v	class:TestDoc
+main	lab.py	/^def main():$/;"	f
+parser	lab.py	/^    parser = ArgumentParser(formatter_class=RawTextHelpFormatter,$/;"	v	class:TestDoc
+test_description	lab.py	/^    def test_description(self):$/;"	m	class:TestDoc
+test_name	lab.py	/^    def test_name(self):$/;"	m	class:TestDoc
+test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestIn
