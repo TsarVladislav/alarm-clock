@@ -173,6 +173,12 @@ class TestSettings(unittest.TestCase):
 
     def test_volume4(self):
         self.assertGreaterEqual(loud(-9999)[0], 0L)
+
+    def test_volume5(self):
+        self.assertAlmostEquals(loud(100)[0], 100L)
+
+    def test_volume6(self):
+        self.assertLessEqual(loud(5556)[0], 100L)
 if __name__ == '__main__':
     unittest.main()
 
