@@ -24,6 +24,9 @@ test_filenull	lab.py	/^    def test_filenull(self):$/;"	m	class:TestSettings
 test_name	lab.py	/^    def test_name(self):$/;"	m	class:TestDoc
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestAt
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestIn
-test_volume	lab.py	/^    def test_volume(self):$/;"	m	class:TestSettings
+test_volume1	lab.py	/^    def test_volume1(self):$/;"	m	class:TestSettings
+test_volume2	lab.py	/^    def test_volume2(self):$/;"	m	class:TestSettings
+test_volume3	lab.py	/^    def test_volume3(self):$/;"	m	class:TestSettings
+test_volume4	lab.py	/^    def test_volume4(self):$/;"	m	class:TestSettings
 test_volume_settings_same	lab.py	/^    def test_volume_settings_same(self):$/;"	m	class:TestSettings
 time_delta	lab.py	/^def time_delta(delta):$/;"	f

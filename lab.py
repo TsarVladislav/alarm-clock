@@ -32,8 +32,12 @@ ALARM_CMD = ['mpv', '-loop=inf',
     '/home/vlad/mandala.mp3']
 
 def loud(loudness):
+    
     m = alsaaudio.Mixer()
-    m.setvolume(loudness)
+    if loudness < 0:
+        m.setvolume(0)
+    else:
+        m.setvolume(loudness)
     return m.getvolume()
 
 def main():
@@ -158,12 +162,17 @@ class TestSettings(unittest.TestCase):
     def test_volume_settings_same(self):
         self.assertIn(loud(50)[0], range(49L, 52L))
 
-    def test_volume(self):
+    def test_volume1(self):
         self.assertEqual(loud(0)[0], 0L)
     
-    def test_volume(self):
+    def test_volume2(self):
         self.assertGreaterEqual(loud(-1)[0], 0L)
 
+    def test_volume3(self):
+        self.assertGreaterEqual(loud(-1000)[0], 0L)
+
+    def test_volume4(self):
+        self.assertGreaterEqual(loud(-9999)[0], 0L)
 if __name__ == '__main__':
     unittest.main()
 
