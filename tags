@@ -10,6 +10,7 @@ __version__	lab.py	/^__version__ = "0.1"$/;"	v
 description	lab.py	/^            description=__doc__)$/;"	v	class:TestDoc
 main	lab.py	/^def main():$/;"	f
 parse_args	lab.py	/^def parse_args(args):$/;"	f
+parse_at	lab.py	/^def parse_at(timespec):$/;"	f
 parse_in	lab.py	/^def parse_in(timespec):$/;"	f
 parser	lab.py	/^    parser = ArgumentParser(formatter_class=RawTextHelpFormatter,$/;"	v	class:TestDoc
 test_description	lab.py	/^    def test_description(self):$/;"	m	class:TestDoc

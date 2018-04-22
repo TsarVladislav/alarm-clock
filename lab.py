@@ -46,6 +46,10 @@ def parse_args(args):
 def parse_in(timespec):
     return timedelta(seconds=deltaparse(timespec))
 
+def parse_at(timespec):
+    yield
+
+
 class TestDoc(unittest.TestCase):
     parser = ArgumentParser(formatter_class=RawTextHelpFormatter,
             description=__doc__)
