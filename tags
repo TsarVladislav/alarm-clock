@@ -24,12 +24,6 @@ test_filenull	lab.py	/^    def test_filenull(self):$/;"	m	class:TestSettings
 test_name	lab.py	/^    def test_name(self):$/;"	m	class:TestDoc
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestAt
 test_null	lab.py	/^    def test_null(self):$/;"	m	class:TestIn
-test_time1	lab.py	/^    def test_time1(self):$/;"	m	class:TestAt
-test_time1	lab.py	/^    def test_time1(self):$/;"	m	class:TestIn
-test_time2	lab.py	/^    def test_time2(self):$/;"	m	class:TestAt
-test_time2	lab.py	/^    def test_time2(self):$/;"	m	class:TestIn
-test_time3	lab.py	/^    def test_time3(self):$/;"	m	class:TestAt
-test_time3	lab.py	/^    def test_time3(self):$/;"	m	class:TestIn
 test_volume	lab.py	/^    def test_volume(self):$/;"	m	class:TestSettings
 test_volume_settings_same	lab.py	/^    def test_volume_settings_same(self):$/;"	m	class:TestSettings
 time_delta	lab.py	/^def time_delta(delta):$/;"	f

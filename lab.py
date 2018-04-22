@@ -79,6 +79,8 @@ def parse_in(timespec):
     return timedelta(seconds=deltaparse(timespec))
 
 def parse_args(args):
+    
+    print(args)
     parser = ArgumentParser(description=__doc__)
 
     parser.add_argument('--version', action='version',
@@ -131,25 +133,12 @@ class TestIn(unittest.TestCase):
     def test_null(self):
         parser = parse_args([])
         self.assertTrue(parser is not None)
-    def test_time1(self):
-        parser = parse_args(['in 2 seconds'])
-    def test_time2(self):
-        parser = parse_args(['in 22 seconds'])
-    def test_time3(self):
-        parser = parse_args(['in -52 seconds'])
 
 class TestAt(unittest.TestCase):
 
     def test_null(self):
         parser = parse_args([])
         self.assertTrue(parser is not None)
-    def test_time1(self):
-        parser = parse_args(['at 2 AM'])
-    def test_time2(self):
-        parser = parse_args(['at 25 AM'])
-    def test_time3(self):
-        parser = parse_args(['at 232323'])
-
 
 class TestSettings(unittest.TestCase):
 
@@ -174,3 +163,4 @@ class TestSettings(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 #    main()
+
