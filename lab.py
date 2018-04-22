@@ -14,9 +14,9 @@ from __future__ import (absolute_import, division, print_function,
 import sys
 import unittest
 from argparse import ArgumentParser, RawTextHelpFormatter, REMAINDER
-import subprocess, time
+import subprocess
+import time
 
-from contextlib import contextmanager
 from datetime import datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
@@ -25,14 +25,14 @@ from pytimeparse import parse as deltaparse
 
 import os.path
 import alsaaudio
+
 __version__ = "0.1"
 
 SAFETY_LIMIT = timedelta(hours=15)
-ALARM_CMD = ['mpv', '-loop=inf',
-    '/home/vlad/mandala.mp3']
+ALARM_CMD = ['mpv', '-loop=inf', '/home/vlad/mandala.mp3']
+
 
 def loud(loudness):
-    
     m = alsaaudio.Mixer()
     if loudness < 0:
         m.setvolume(0)
@@ -40,7 +40,8 @@ def loud(loudness):
         m.setvolume(100)
     else:
         m.setvolume(loudness)
-    return m.getvolume()
+    return m.getvolume()[0]
+
 
 def main():
 
@@ -55,11 +56,10 @@ def main():
     if args.track is not None:
         print("Setting alarm melody as '%s'" % args.track)
         ALARM_CMD[2] = args.track
-    
 
     if args.volume is not None:
         print("setting volume to %s" % args.volume)
-        loundess = int(args.volume)
+        loudness = int(args.volume)
 
     if delay > SAFETY_LIMIT:
         raise Exception("The delay is too big: %s" % time_delta(delay))
@@ -71,11 +71,11 @@ def main():
 
     subprocess.call(ALARM_CMD)
 
+
 def time_delta(delta):
 
-    print(delta)
     result = []
-    days, hours = delta.days, delta.seconds // 3600
+    days = delta.days // 3600
     minutes = (delta.seconds % 3600) // 60
     seconds = delta.seconds % 60
 
@@ -88,32 +88,38 @@ def time_delta(delta):
         result.append('%s seconds' % seconds)
     return ', '.join(result)
 
+
 def parse_in(timespec):
     return timedelta(seconds=deltaparse(timespec))
 
+
 def parse_args(args):
 
-    print(args)
     parser = ArgumentParser(description=__doc__)
 
     parser.add_argument('--version', action='version',
-            version="%%(prog)s v%s" % __version__)
+                        version="%%(prog)s v%s" % __version__)
 
-    parser.add_argument('-t', '--track', help='give full path to melody in your filesystem')
+    parser.add_argument('-t', '--track',
+                        help='give full path to melody in your filesystem')
     parser.add_argument('-v', '--volume', help='it will set loundess')
 
     subparsers = parser.add_subparsers(description='time to wake up')
 
-    parser_in = subparsers.add_parser('in', help='wake up after some time left. For example: in 5 minutes')
+    parser_in = subparsers.add_parser('in',
+                                      help='wake up after some time left.\
+                                            For example: in 5 minutes')
     parser_in.set_defaults(parser=parse_in)
     parser_in.add_argument('timespec_list', nargs=REMAINDER)
 
-    parser_at = subparsers.add_parser('at',help='wake up at specific time. For example: at 5 AM' )
+    parser_at = subparsers.add_parser('at',
+                                      help='wake up at specific time.\
+                                            For example: at 5 AM')
     parser_at.set_defaults(parser=parse_at)
     parser_at.add_argument('timespec_list', nargs=REMAINDER)
 
-
     return parser
+
 
 def parse_at(timespec):
 
@@ -131,7 +137,7 @@ def parse_at(timespec):
 
 class TestDoc(unittest.TestCase):
     parser = ArgumentParser(formatter_class=RawTextHelpFormatter,
-            description=__doc__)
+                            description=__doc__)
 
     def test_name(self):
         self.assertEqual(self.parser.prog, 'lab.py')
@@ -142,11 +148,13 @@ class TestDoc(unittest.TestCase):
         self.assertNotEqual(self.parser.description.lstrip(), '')
         self.assertNotEqual(self.parser.description.rstrip(), '')
 
+
 class TestIn(unittest.TestCase):
 
     def test_null(self):
         parser = parse_args([])
         self.assertTrue(parser is not None)
+
 
 class TestAt(unittest.TestCase):
 
@@ -154,10 +162,8 @@ class TestAt(unittest.TestCase):
         parser = parse_args([])
         self.assertTrue(parser is not None)
 
-class TestSettings(unittest.TestCase):
 
-    def test_filenull(self):
-        self.assertTrue(ALARM_CMD[2] is not None)
+class TestSettings(unittest.TestCase):
 
     def test_filename_empty(self):
         self.assertNotEqual(ALARM_CMD[2], '')
@@ -165,31 +171,42 @@ class TestSettings(unittest.TestCase):
         self.assertNotEqual(ALARM_CMD[2].lstrip(), '')
         self.assertNotEqual(ALARM_CMD[2].rstrip(), '')
 
+    def test_filenull(self):
+        self.assertTrue(ALARM_CMD[2] is not None)
+
     def test_fileexists(self):
         self.assertTrue(os.path.exists(ALARM_CMD[2]) is True)
 
     def test_volume_settings_same(self):
-        self.assertIn(loud(50)[0], range(49L, 52L))
+        val = loud(50)
+        self.assertIn(int(val), range(49, 52))
 
     def test_volume1(self):
-        self.assertEqual(loud(0)[0], 0L)
-    
+        val = loud(0)
+        self.assertEqual(int(val), 0)
+
     def test_volume2(self):
-        self.assertGreaterEqual(loud(-1)[0], 0L)
+        val = loud(-1)
+        self.assertGreaterEqual(int(val), 0)
 
     def test_volume3(self):
-        self.assertGreaterEqual(loud(-1000)[0], 0L)
+        val = loud(-1000)
+        self.assertGreaterEqual(int(val), 0)
 
     def test_volume4(self):
-        self.assertGreaterEqual(loud(-9999)[0], 0L)
+        val = loud(-9999)
+        self.assertGreaterEqual(int(val), 0)
 
     def test_volume5(self):
-        self.assertAlmostEquals(loud(100)[0], 100L)
+        val = loud(100)
+        self.assertAlmostEquals(int(val), 100)
 
     def test_volume6(self):
-        self.assertLessEqual(loud(5556)[0], 100L)
+        val = loud(100)
+        self.assertLessEqual(int(val), 100)
+
+
 if __name__ == '__main__':
-#    unittest.main()
 
+    # unittest.main()
     main()
-
