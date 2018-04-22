@@ -36,6 +36,8 @@ def loud(loudness):
     m = alsaaudio.Mixer()
     if loudness < 0:
         m.setvolume(0)
+    elif loudness > 100:
+        m.setvolume(100)
     else:
         m.setvolume(loudness)
     return m.getvolume()
