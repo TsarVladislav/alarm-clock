@@ -21,6 +21,9 @@ from pytimeparse import parse as deltaparse
 import os.path
 __version__ = "0.1"
 
+        
+ALARM_CMD = ['mpv', '-loop=inf',
+    '/home/vlad/mandala.mp3']
 def main():
     parser = parse_args(sys.argv[1:])
     args = parser.parse_args()
