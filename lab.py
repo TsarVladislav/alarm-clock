@@ -34,7 +34,7 @@ ALARM_CMD = ['mpv', '-loop=inf',
 def loud(loudness):
     m = alsaaudio.Mixer()
     m.setvolume(loudness)
-    return True
+    return m.getvolume()
 
 def main():
 
@@ -61,6 +61,7 @@ def main():
 
 def time_delta(delta):
 
+    print(delta)
     result = []
     days, hours = delta.days, delta.seconds // 3600
     minutes = (delta.seconds % 3600) // 60
@@ -79,7 +80,7 @@ def parse_in(timespec):
     return timedelta(seconds=deltaparse(timespec))
 
 def parse_args(args):
-    
+
     print(args)
     parser = ArgumentParser(description=__doc__)
 
@@ -155,12 +156,16 @@ class TestSettings(unittest.TestCase):
         self.assertTrue(os.path.exists(ALARM_CMD[2]) is True)
 
     def test_volume_settings_same(self):
-        self.assertEqual(loud(50), True)
+        self.assertIn(loud(50)[0], range(49L, 52L))
 
     def test_volume(self):
-        self.assertEqual(loud(0), True)
+        self.assertEqual(loud(0)[0], 0L)
+    
+    def test_volume(self):
+        self.assertGreaterEqual(loud(-1)[0], 0L)
 
 if __name__ == '__main__':
     unittest.main()
+
 #    main()
 
